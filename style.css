@@ -1,0 +1,62 @@
+body {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	background: linear-gradient(90deg, #06081c, #01124c);
+}
+
+.autocomplete-container {
+	position: relative;
+	margin: 0 auto;
+	width: 500px;
+	height: 300px;
+	margin-top: 100px;
+}
+.autocomplete-container__input {
+	width: 50vh;
+	height: 40px;
+	font-size: 20px;
+	padding: 15px;
+	border-radius: 8px;
+}
+
+.autocomplete-container__results {
+	position: absolute;
+	top: 75px;
+	left: 5px;
+	background-color: #fff;
+	border-radius: 8px;
+	width: 480px;
+}
+.autocomplete-item {
+	padding: 15px;
+	cursor: pointer;
+	border-radius: 8px;
+}
+.autocomplete-item:hover {
+	background-color: #4770f5;
+}
+.repo-list {
+	margin: 0 auto;
+	max-width: 600px;
+	border-top: 1px solid white;
+	padding-top: 20px;
+	margin-top: 45px;
+}
+.github-rep-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 15px;
+	margin: 5px auto;
+	width: 500px;
+}
+.remove-btn {
+	background-color: red;
+	color: white;
+	font-size: 30px;
+	border: none;
+	border-radius: 50%;
+	padding: 3px 11px;
+	cursor: pointer;
+}
