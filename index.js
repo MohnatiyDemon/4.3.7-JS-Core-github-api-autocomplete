@@ -23,7 +23,7 @@ function debounce(fn, delay) {
 async function handleInput(event) {
 	const query = event.target.value
 	if (!query) {
-		autocompleteResults.innerHTML = ''
+		autocompleteResults.textContent = ''
 		return
 	}
 	const repositories = await fetchRepositories(query)
@@ -32,28 +32,45 @@ async function handleInput(event) {
 
 function showAutocompleteResults(repositories) {
 	autocompleteResults.innerHTML = ''
+	const fragment = document.createDocumentFragment()
 	repositories.forEach(repo => {
 		const item = document.createElement('div')
 		item.className = 'autocomplete-item'
 		item.textContent = repo.full_name
-		item.onclick = () => addRepository(repo)
-		autocompleteResults.appendChild(item)
+		item.addEventListener('click', () => addRepository(repo))
+		fragment.appendChild(item)
 	})
+	autocompleteResults.appendChild(fragment)
 }
 
 function addRepository(repo) {
 	const repoItem = document.createElement('div')
 	repoItem.className = 'github-rep-item'
-	repoItem.innerHTML = `
-        <span>Name: ${repo.name} <br> Owner: ${repo.owner.login} <br> Stars: ${repo.stargazers_count}	&#9734; </span>
-        <button class="remove-btn">&#215;</button>
-    `
-	repoItem.querySelector('.remove-btn').onclick = () => {
-		repoList.removeChild(repoItem)
-	}
+
+	const nameSpan = document.createElement('span')
+	nameSpan.textContent = `Name: ${repo.name}`
+
+	const ownerSpan = document.createElement('span')
+	ownerSpan.textContent = `Owner: ${repo.owner.login}`
+
+	const starsSpan = document.createElement('span')
+	starsSpan.textContent = `Stars: ${repo.stargazers_count} ★`
+
+	const removeButton = document.createElement('button')
+	removeButton.className = 'remove-btn'
+	removeButton.textContent = '✕'
+	removeButton.addEventListener('click', () => {
+		repoItem.remove()
+	})
+
+	repoItem.appendChild(nameSpan)
+	repoItem.appendChild(ownerSpan)
+	repoItem.appendChild(starsSpan)
+	repoItem.appendChild(removeButton)
 	repoList.appendChild(repoItem)
+
 	searchInput.value = ''
-	autocompleteResults.innerHTML = ''
+	autocompleteResults.textContent = ''
 }
 
 searchInput.addEventListener('input', debounce(handleInput, 200))
